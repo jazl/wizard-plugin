@@ -31,8 +31,9 @@
   <actions>
     <group id="com.azl.PluginGroup" text="Test Wizards" description="Test Wizards">
       <add-to-group group-id="MainMenu" anchor="before" relative-to-action="WindowMenu"/>
-      <action id="com.azl.actiona" class="com.azl.abstractwizard.ActionA" text="AbstractWizard" description="" />
-      <action id="com.azl.actionx" class="com.azl.xwizard.ActionX" text="AbstractWizardEx" description="" />
+      <action id="com.azl.actiona" class="com.azl.abstractwizard.ActionA" text="AbstractWizard" description="Executes a wizard based on AbstractWizard" />
+      <action id="com.azl.actionx" class="com.azl.xwizard.ActionX" text="AbstractWizardEx" description="Executes a wizard based on AbstractWizardEx" />
+      <action id="com.azl.actionxstatic" class="com.azl.xwizard.ActionXStatic" text="AbstractWizardExStatic" description="Launches a wizard using static class" />
     </group>
   </actions>
 
