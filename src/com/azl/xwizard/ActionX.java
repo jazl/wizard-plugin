@@ -20,7 +20,7 @@ public class ActionX extends AnAction {
         Project project = e.getProject();
 
         List<AbstractWizardStepEx> steps = new ArrayList<>();
-        steps.add(new StepAx("Step A"));
+        steps.add(new StepAx("Step A", project));
         steps.add(new StepBx("Step B"));
         steps.add(new StepCx("Step C"));
 

@@ -3,6 +3,7 @@ package com.azl.xwizard;
 import com.azl.panels.PanelA;
 import com.intellij.ide.wizard.AbstractWizardStepEx;
 import com.intellij.ide.wizard.CommitStepException;
+import com.intellij.openapi.project.Project;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -13,10 +14,12 @@ import javax.swing.*;
  */
 public class StepAx extends AbstractWizardStepEx {
 
-    JPanel panel = null;
+    Project project = null;
+    PanelA panel = null;
 
-    public StepAx(@Nullable String title) {
+    public StepAx(@Nullable String title, Project project) {
         super(title);
+        this.project = project;
     }
 
     @NotNull
@@ -52,6 +55,7 @@ public class StepAx extends AbstractWizardStepEx {
         if(panel != null) return panel;
 
         panel = new PanelA();
+        panel.setProject(project);
         return panel;
     }
 

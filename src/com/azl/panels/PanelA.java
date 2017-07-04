@@ -1,14 +1,49 @@
 package com.azl.panels;
 
+import com.intellij.execution.filters.TextConsoleBuilderFactory;
+import com.intellij.execution.ui.ConsoleView;
+import com.intellij.execution.ui.ConsoleViewContentType;
+import com.intellij.openapi.editor.markup.TextAttributes;
+import com.intellij.openapi.fileChooser.FileChooser;
+import com.intellij.openapi.fileChooser.FileChooserDescriptor;
+import com.intellij.openapi.project.Project;
+import com.intellij.openapi.ui.TextBrowseFolderListener;
+import com.intellij.openapi.ui.TextFieldWithBrowseButton;
+import com.intellij.openapi.vfs.VirtualFile;
+
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
  * Created by jazl on 6/29/2017.
  */
 public class PanelA extends JPanel {
+    private Project project;
     public PanelA() {
-        add(new Label("Panel A"));
+        final FileChooserDescriptor fcd = new FileChooserDescriptor(true,true,true,true,true,true);
+
+        //add(new Label("Panel A"));
+        JButton button = new JButton("Choose...");
+        button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                VirtualFile[] virtualFile = FileChooser.chooseFiles(fcd,null,null);
+                ConsoleView console = TextConsoleBuilderFactory.getInstance().createBuilder(project).getConsole();
+                ConsoleViewContentType contentType = new ConsoleViewContentType("someName", new TextAttributes());
+                console.print("oh hai sharon!", contentType);
+            }
+        });
+        add(button);
+        JTextField fileInfo = new JTextField();
+        TextFieldWithBrowseButton textFieldWithBrowseButton = new TextFieldWithBrowseButton(fileInfo);
+        textFieldWithBrowseButton.addBrowseFolderListener(new TextBrowseFolderListener(fcd));
+
+        add(textFieldWithBrowseButton);
         setSize(new Dimension(500,500));
+    }
+    public void setProject(Project project) {
+        this.project = project;
     }
 }

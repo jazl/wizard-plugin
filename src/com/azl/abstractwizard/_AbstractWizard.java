@@ -22,7 +22,7 @@ public class _AbstractWizard extends AbstractWizard<AbstractWizardStepEx> {
     public _AbstractWizard(String title, @Nullable Project project) {
         super(title, project);
 
-        addStep(new StepAx("Step Ax"));
+        addStep(new StepAx("Step Ax", null));
         addStep(new StepBx("Step Bx"));
         addStep(new StepCx("Step Cx"));
 

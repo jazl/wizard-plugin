@@ -13,7 +13,7 @@ public class _AbstractExWizardStatic {
 
     public static void show(Project project) {
         List<AbstractWizardStepEx> steps = new ArrayList<>();
-        steps.add(new StepAx("Step A"));
+        steps.add(new StepAx("Step A", project));
         steps.add(new StepBx("Step B"));
         steps.add(new StepCx("Step C"));
 
