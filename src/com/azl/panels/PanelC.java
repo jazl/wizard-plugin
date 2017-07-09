@@ -7,12 +7,17 @@ import java.awt.*;
  * Created by jazl on 6/29/2017.
  */
 public class PanelC extends JPanel {
+    Label textLabel;
     public PanelC() {
-        add(new Label("Panel C"));
-        add(new Label("Panel C"));
-        add(new Label("Panel C"));
-        add(new Label("Panel C"));
-        add(new Label("Panel C"));
+        String labelText = "Panel C";
+        textLabel = new Label(labelText);
+        add(textLabel);
+        add(textLabel);
+        add(textLabel);
+        add(textLabel);
         setSize(new Dimension(500,500));
+    }
+    public void setLabelText(String text) {
+        textLabel.setText(text);
     }
 }

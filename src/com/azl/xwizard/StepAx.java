@@ -1,5 +1,7 @@
 package com.azl.xwizard;
 
+import com.azl.common.SharedObject;
+import com.azl.common.WizardStep;
 import com.azl.panels.PanelA;
 import com.intellij.ide.wizard.AbstractWizardStepEx;
 import com.intellij.ide.wizard.CommitStepException;
@@ -12,7 +14,7 @@ import javax.swing.*;
 /**
  * Created by jazl on 6/29/2017.
  */
-public class StepAx extends AbstractWizardStepEx {
+public class StepAx extends WizardStep {
 
     Project project = null;
     PanelA panel = null;
@@ -47,7 +49,14 @@ public class StepAx extends AbstractWizardStepEx {
 
     @Override
     public void commit(CommitType commitType) throws CommitStepException {
+        if(sharedObject == null) {
+            sharedObject = new SharedObject();
+        }
         System.out.println(this.getStepId() + " commit "+commitType);
+        Integer cnt = sharedObject.getCounter();
+        System.out.println("StepAx: sharedObject.getCounter() = "+cnt);
+        sharedObject.setCounter(++cnt);
+        sharedObject.setMessage("Last step: "+getStepId());
     }
 
     @Override

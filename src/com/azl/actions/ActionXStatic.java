@@ -1,5 +1,6 @@
-package com.azl.xwizard;
+package com.azl.actions;
 
+import com.azl.xwizard._AbstractExWizardStatic;
 import com.intellij.ide.wizard.AbstractWizardStepEx;
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;

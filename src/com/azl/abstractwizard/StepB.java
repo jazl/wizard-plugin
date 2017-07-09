@@ -31,7 +31,7 @@ public class StepB implements Step {
     public JComponent getComponent() {
         if(panel != null) return panel;
 
-        panel = new PanelB();
+        panel = new PanelB(null);
         return panel;
     }
 

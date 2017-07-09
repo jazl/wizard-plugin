@@ -1,5 +1,6 @@
 package com.azl.xwizard;
 
+import com.azl.common.WizardStep;
 import com.azl.panels.PanelB;
 import com.intellij.ide.wizard.AbstractWizardStepEx;
 import com.intellij.ide.wizard.CommitStepException;
@@ -13,7 +14,7 @@ import java.awt.event.ActionListener;
 /**
  * Created by jazl on 6/29/2017.
  */
-public class StepBx extends AbstractWizardStepEx {
+public class StepBx extends WizardStep {
 
     private JPanel panel = null;
     private boolean completeFlag = false;
@@ -49,6 +50,10 @@ public class StepBx extends AbstractWizardStepEx {
     @Override
     public void commit(CommitType commitType) throws CommitStepException {
         System.out.println(this.getStepId() + " commit "+commitType);
+        Integer cnt = sharedObject.getCounter();
+        System.out.println("StepBx: sharedObject.getCounter() = "+cnt);
+        sharedObject.setCounter(++cnt);
+        sharedObject.setMessage("Last step: "+getStepId());
         if(throwExceptionFlag) {
             throw new CommitStepException("Stop it!");
         }
@@ -58,14 +63,14 @@ public class StepBx extends AbstractWizardStepEx {
     public JComponent getComponent() {
         if(panel != null) return panel;
 
-        panel = new PanelB();
+        panel = new PanelB(sharedObject);
 
         JCheckBox checkbox = new JCheckBox("Check me!");
         checkbox.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //completeFlag = checkbox.isSelected();
-                throwExceptionFlag = checkbox.isSelected();
+                completeFlag = checkbox.isSelected();
+                //throwExceptionFlag = checkbox.isSelected();
                 fireStateChanged();
                 //fireGoNext();
             }

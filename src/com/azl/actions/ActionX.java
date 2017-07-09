@@ -1,6 +1,10 @@
-package com.azl.xwizard;
+package com.azl.actions;
 
 import com.azl.abstractwizard._AbstractWizard;
+import com.azl.xwizard.StepAx;
+import com.azl.xwizard.StepBx;
+import com.azl.xwizard.StepCx;
+import com.azl.xwizard._AbstractExWizard;
 import com.intellij.ide.wizard.AbstractWizardStepEx;
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;

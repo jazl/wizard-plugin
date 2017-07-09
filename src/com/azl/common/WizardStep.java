@@ -8,6 +8,8 @@ import org.jetbrains.annotations.Nullable;
  */
 public abstract class WizardStep extends AbstractWizardStepEx {
 
+    protected static SharedObject sharedObject;
+
     public WizardStep(@Nullable String title) {
         super(title);
     }

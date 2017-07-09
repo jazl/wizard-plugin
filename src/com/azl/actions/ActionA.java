@@ -1,4 +1,4 @@
-package com.azl.abstractwizard;
+package com.azl.actions;
 
 import com.azl.abstractwizard._AbstractWizard;
 import com.intellij.notification.Notification;
