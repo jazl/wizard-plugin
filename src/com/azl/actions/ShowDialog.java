@@ -17,7 +17,7 @@ public class ShowDialog extends AnAction {
         Project project = e.getProject();
 
         ComponentsDialog dlg = new ComponentsDialog();
-        dlg.show();
+        dlg.setVisible(true);
 
     }
 }

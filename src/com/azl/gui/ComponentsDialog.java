@@ -12,12 +12,19 @@ import oracle.jrockit.jfr.JFR;
 import org.jetbrains.annotations.Nullable;
 
 import javax.swing.*;
+import javax.swing.event.HyperlinkEvent;
+import javax.swing.event.HyperlinkListener;
+import javax.swing.text.html.HTMLEditorKit;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class ComponentsDialog extends JFrame {
+
+    private final static String url = "http://localhost:4200/";
+
     private Project project;
     final JFrame frameRef;
 
@@ -25,15 +32,18 @@ public class ComponentsDialog extends JFrame {
         frameRef = this;
 
         setSize(new Dimension(500,500));
-        add(new JLabel("JFrame baby!"));
+        setLayout(new BorderLayout());
 
         JPanel panel = new JPanel();
 
         panel.setPreferredSize(new Dimension(500,600));
 
-        FlowLayout layout = new FlowLayout();
+        //FlowLayout layout = new FlowLayout();
+        BoxLayout layout = new BoxLayout(panel, BoxLayout.PAGE_AXIS);
+        panel.setLayout(layout);
 
         JButton btnShowPicker = new JButton("Show File Types Picker...");
+        btnShowPicker.setSize(500,525);
         panel.add(btnShowPicker);
         btnShowPicker.addActionListener(new ActionListener() {
             @Override
@@ -48,6 +58,7 @@ public class ComponentsDialog extends JFrame {
         });
 
         JButton btnShowGenericDialog = new JButton("Show Generic Dialog...");
+        btnShowGenericDialog.setPreferredSize(new Dimension(200,25));
         panel.add(btnShowGenericDialog);
         btnShowGenericDialog.addActionListener(new ActionListener() {
             @Override
@@ -59,12 +70,24 @@ public class ComponentsDialog extends JFrame {
         });
 
         JButton btnShowWebView = new JButton("Show WebView...");
+        btnShowWebView.setPreferredSize(new Dimension(200,25));
         panel.add(btnShowWebView);
         btnShowWebView.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 WebViewDialog d = new WebViewDialog(null, false);
                 d.show();
+            }
+        });
+
+        JButton btnEditorPane = new JButton("Show JEditorPane...");
+        btnEditorPane.setPreferredSize(new Dimension(200,25));
+        panel.add(btnEditorPane);
+        btnEditorPane.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JEditorPaneDialog d = new JEditorPaneDialog(frameRef, "With JEditorPane!");
+                d.setVisible(true);
             }
         });
 
@@ -117,5 +140,45 @@ public class ComponentsDialog extends JFrame {
 
             add(panel);
         }
+    }
+
+    private class JEditorPaneDialog extends JDialog {
+
+        public JEditorPaneDialog(Frame owner, String title) {
+            super(owner, title);
+
+            setSize(500, 500);
+
+            JEditorPane jEditorPane = new JEditorPane();
+            jEditorPane.setEditable(false);
+
+            //JTextPane textPane = new JTextPane();
+
+            try {
+                jEditorPane.setPage(url);
+            } catch (IOException e) {
+                e.printStackTrace();
+                JOptionPane.showMessageDialog(this,"Got error: "+e.getMessage());
+            }
+            jEditorPane.setContentType("text/html");
+            jEditorPane.setEditable(false);
+            ((HTMLEditorKit)jEditorPane.getEditorKitForContentType("text/html")).setAutoFormSubmission(false);
+            jEditorPane.addHyperlinkListener(new HyperlinkListener()
+            {
+                @Override
+                public void hyperlinkUpdate(HyperlinkEvent e)
+                {
+                    // this method will be called when user hits submit button on the form
+                }
+            });
+
+            //jEditorPane.add(textPane);
+            add(jEditorPane);
+        }
+    }
+
+    public static void main(String[] args) {
+        ComponentsDialog dlg = new ComponentsDialog();
+        dlg.setVisible(true);
     }
 }
