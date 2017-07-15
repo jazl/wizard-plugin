@@ -13,6 +13,7 @@ import javafx.scene.Scene;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import oracle.jrockit.jfr.JFR;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.w3c.dom.Document;
 
@@ -27,10 +28,7 @@ import javax.swing.text.html.HTMLEditorKit;
 import javax.swing.text.html.HTMLFrameHyperlinkEvent;
 import java.awt.*;
 import java.awt.Event;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.ComponentEvent;
-import java.awt.event.ComponentListener;
+import java.awt.event.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import javafx.concurrent.Worker.State;
@@ -120,6 +118,7 @@ public class ComponentsDialog extends JFrame {
             super(project, canBeParent);
             //setSize(500,500);
             init();
+
         }
 
         @Nullable
@@ -133,29 +132,39 @@ public class ComponentsDialog extends JFrame {
             Platform.runLater(new Runnable() {
                 @Override
                 public void run() {
-                    webView = new WebView();
-                    webEngine = webView.getEngine();
-                    jfxPanel.setScene(new Scene(webView));
-                    //webEngine.executeScript("alert('hello!');");
-                    webEngine.load(url);
-                    //webEngine.loadContent(html);
-
-                    webEngine.getLoadWorker().stateProperty().addListener(new ChangeListener<State>() {
-                        @Override
-                        public void changed(ObservableValue<? extends State> observable, State oldValue, State newValue) {
-                            System.out.println(observable.toString());
-                            if(observable.getValue() == State.SUCCEEDED) {
-                                System.out.println("READY!");
-                                setupDocumentListener();
-                            }
-                        }
-                    });
-
+                    loadViewContent(jfxPanel);
+                    jfxPanel.requestFocus();
                 }
             });
 
             pack();
             return jfxPanel;
+        }
+
+        private void loadViewContent(JFXPanel panel) {
+            webView = new WebView();
+            webEngine = webView.getEngine();
+            panel.setScene(new Scene(webView));
+            //webEngine.executeScript("alert('hello!');");
+            webEngine.load(url);
+            //webEngine.loadContent(html);
+
+            webEngine.getLoadWorker().stateProperty().addListener(new ChangeListener<State>() {
+                @Override
+                public void changed(ObservableValue<? extends State> observable, State oldValue, State newValue) {
+                    System.out.println(observable.toString());
+                    if(observable.getValue() == State.SUCCEEDED) {
+                        System.out.println("READY!");
+                        setupDocumentListener();
+                    }
+                }
+            });
+        }
+        @NotNull
+        @Override
+        protected Action[] createActions() {
+            // return super.createActions();
+            return new Action[]{};
         }
 
         private void setupDocumentListener() {
@@ -167,7 +176,8 @@ public class ComponentsDialog extends JFrame {
                     Document document = webEngine.getDocument();
                     Element errorMessageLabel = document.getElementById("errorMessageLabel");
                     String errorMsg = errorMessageLabel.getTextContent();
-                    Platform.exit();
+                    //Messages.showInfoMessage(errorMsg,"HTML");
+                    JOptionPane.showMessageDialog(null, errorMsg);
                 }
             };
 
