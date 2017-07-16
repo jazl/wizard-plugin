@@ -9,8 +9,12 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.concurrent.Worker;
 import javafx.embed.swing.JFXPanel;
+import javafx.event.EventHandler;
+import javafx.event.EventType;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.web.WebEngine;
+import javafx.scene.web.WebEvent;
 import javafx.scene.web.WebView;
 import oracle.jrockit.jfr.JFR;
 import org.jetbrains.annotations.NotNull;
@@ -111,6 +115,7 @@ public class ComponentsDialog extends JFrame {
 
     private class WebViewDialog extends DialogWrapper {
 
+        final JFXPanel jfxPanel = new JFXPanel();
         WebView webView;
         WebEngine webEngine;
 
@@ -118,13 +123,27 @@ public class ComponentsDialog extends JFrame {
             super(project, canBeParent);
             //setSize(500,500);
             init();
+        }
 
+        protected void closeDialog(){
+            // TODO: wow, this is terrible! Figure out right way to do this...
+            Container parent = jfxPanel.getParent();
+            int maxLoop = 0;
+            while(parent != null) {
+                System.out.println("parent = "+parent.getClass().getTypeName());
+                if(parent.getClass().getTypeName().endsWith("$MyDialog") || ++maxLoop>10) {
+                    parent.setVisible(false);
+                    break;
+                }
+                parent = parent.getParent();
+            }
+            //close(1);
         }
 
         @Nullable
         @Override
         protected JComponent createCenterPanel() {
-            final JFXPanel jfxPanel = new JFXPanel();
+
             //jfxPanel.setSize(new Dimension(300,300));
             jfxPanel.setPreferredSize(new Dimension(300,450));
             String html = "<html><body><h3>Oh hai there!</h3><a href=\"http://www.microsoft.com\">Link</a><input id=\"btnSubmit\" type=\"submit\"/></body></html>";
@@ -132,8 +151,29 @@ public class ComponentsDialog extends JFrame {
             Platform.runLater(new Runnable() {
                 @Override
                 public void run() {
+                    System.out.println("Thread.currentThread() = "+Thread.currentThread().toString());
                     loadViewContent(jfxPanel);
                     jfxPanel.requestFocus();
+                }
+            });
+
+            jfxPanel.addKeyListener(new KeyListener() {
+                @Override
+                public void keyTyped(KeyEvent e) {
+                    System.out.println("keytyped!");
+                }
+
+                @Override
+                public void keyPressed(KeyEvent e) {
+                    System.out.println("keyPressed! "+e);
+                    if(e.getKeyChar() == 'Q'){
+                        closeDialog();
+                    }
+                }
+
+                @Override
+                public void keyReleased(KeyEvent e) {
+                    System.out.println("keyReleased!");
                 }
             });
 
@@ -144,6 +184,7 @@ public class ComponentsDialog extends JFrame {
         private void loadViewContent(JFXPanel panel) {
             webView = new WebView();
             webEngine = webView.getEngine();
+
             panel.setScene(new Scene(webView));
             //webEngine.executeScript("alert('hello!');");
             webEngine.load(url);
@@ -177,13 +218,32 @@ public class ComponentsDialog extends JFrame {
                     Element errorMessageLabel = document.getElementById("errorMessageLabel");
                     String errorMsg = errorMessageLabel.getTextContent();
                     //Messages.showInfoMessage(errorMsg,"HTML");
-                    JOptionPane.showMessageDialog(null, errorMsg);
+                    //JOptionPane.showMessageDialog(null, errorMsg);
+                    System.out.println("Thread = "+Thread.currentThread().toString());
+                    closeDialog();
                 }
             };
 
             Document document = webEngine.getDocument();
             Element el = document.getElementById("loginButton");
             ((EventTarget) el).addEventListener("click", listener, false);
+
+            webEngine.setOnAlert(new EventHandler<WebEvent<String>>() {
+                @Override
+                public void handle(WebEvent<String> event)
+                {
+                    System.out.println("setOnAlert: "+event);
+                    //JOptionPane.showMessageDialog(null, event);
+                }
+            });
+
+            webEngine.setOnStatusChanged(new EventHandler<WebEvent<String>>() {
+                @Override
+                public void handle(WebEvent<String> event) {
+                    System.out.println("setOnStatusChanged: "+event);
+                    //JOptionPane.showMessageDialog(null, event);
+                }
+            });
 
         }
     }
