@@ -39,6 +39,7 @@ import javafx.concurrent.Worker.State;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import org.w3c.dom.events.*;
+import org.w3c.dom.html.HTMLFormElement;
 
 public class ComponentsDialog extends JFrame {
 
@@ -197,7 +198,7 @@ public class ComponentsDialog extends JFrame {
                     System.out.println(observable.toString());
                     if(observable.getValue() == State.SUCCEEDED) {
                         System.out.println("READY!");
-                        setupDocumentListener();
+                        handleDocumentLoaded();
                     }
                 }
             });
@@ -209,49 +210,53 @@ public class ComponentsDialog extends JFrame {
             return new Action[]{};
         }
 
-        private void setupDocumentListener() {
-            EventListener listener = new EventListener() {
-                @Override
-                public void handleEvent(org.w3c.dom.events.Event evt) {
-                    EventTarget currentTarget = evt.getCurrentTarget();
-                    EventTarget target = evt.getTarget();
-                    Document document = webEngine.getDocument();
-                    Element errorMessageLabel = document.getElementById("errorMessageLabel");
-                    String errorMsg = errorMessageLabel.getTextContent();
-                    //Messages.showInfoMessage(errorMsg,"HTML");
-                    //JOptionPane.showMessageDialog(null, errorMsg);
-                    System.out.println("Thread = "+Thread.currentThread().toString());
-                    closeDialog();
-                }
-            };
+        private void handleDocumentLoaded() {
 
             Document document = webEngine.getDocument();
-            NodeList nodeList = document.getElementsByTagName("input");
 
-            if(nodeList.getLength() > 0){
-                ((EventTarget) nodeList.item(0)).addEventListener("click", listener, false);
+            //HTMLFormElement form = (HTMLFormElement) document.getElementsByTagName("form");
+            NodeList forms = document.getElementsByTagName("form");
+
+            if(forms.getLength() > 0) {
+                if (((HTMLFormElement)forms.item(0)).getAttribute("action").contains("test")) {
+                    NodeList nodeList = document.getElementsByTagName("input");
+                    if(nodeList.getLength() > 0){
+                        ((EventTarget) nodeList.item(0)).addEventListener("click", new EventListener() {
+                            @Override
+                            public void handleEvent(org.w3c.dom.events.Event evt) {
+                                EventTarget currentTarget = evt.getCurrentTarget();
+                                EventTarget target = evt.getTarget();
+                                Document document = webEngine.getDocument();
+                            }
+                        }, false);
+                        webEngine.setOnAlert(new EventHandler<WebEvent<String>>() {
+                            @Override
+                            public void handle(WebEvent<String> event)
+                            {
+                                System.out.println("setOnAlert: "+event);
+                                //JOptionPane.showMessageDialog(null, event);
+                            }
+                        });
+                        webEngine.setOnStatusChanged(new EventHandler<WebEvent<String>>() {
+                            @Override
+                            public void handle(WebEvent<String> event) {
+                                System.out.println("setOnStatusChanged: "+event);
+                                //JOptionPane.showMessageDialog(null, event);
+                            }
+                        });
+                    }
+                    else {
+                        JOptionPane.showMessageDialog(null, "No submit button found!");
+                    }
+                }
             }
             else {
-                JOptionPane.showMessageDialog(null, "No submit button found!");
+                System.out.println("document = "+document.toString());
+
+                Element element = (Element) document.getElementsByTagName("body").item(0);
+                System.out.println("Response = "+element.getTextContent());
+                closeDialog();
             }
-
-            webEngine.setOnAlert(new EventHandler<WebEvent<String>>() {
-                @Override
-                public void handle(WebEvent<String> event)
-                {
-                    System.out.println("setOnAlert: "+event);
-                    //JOptionPane.showMessageDialog(null, event);
-                }
-            });
-
-            webEngine.setOnStatusChanged(new EventHandler<WebEvent<String>>() {
-                @Override
-                public void handle(WebEvent<String> event) {
-                    System.out.println("setOnStatusChanged: "+event);
-                    //JOptionPane.showMessageDialog(null, event);
-                }
-            });
-
         }
     }
 
