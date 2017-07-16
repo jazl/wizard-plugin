@@ -33,6 +33,9 @@ public class StepAx extends WizardStep {
     @Nullable
     @Override
     public Object getNextStepId() {
+        if(panel.skipNextStep()) {
+            return StepIdentifiers.STEP_C;
+        }
         return StepIdentifiers.STEP_B;
     }
 

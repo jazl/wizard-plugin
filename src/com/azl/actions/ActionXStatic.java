@@ -18,7 +18,7 @@ public class ActionXStatic extends AnAction {
     public void actionPerformed(AnActionEvent e) {
         Project project = e.getProject();
 
-        Messages.showInfoMessage("About to launch using static class...","Info");
+        //Messages.showInfoMessage("About to launch using static class...","Info");
         _AbstractExWizardStatic.show(project);
     }
 }

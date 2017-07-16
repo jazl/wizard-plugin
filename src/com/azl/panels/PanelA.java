@@ -20,6 +20,7 @@ import java.awt.event.ActionListener;
  * Created by jazl on 6/29/2017.
  */
 public class PanelA extends JPanel {
+    private boolean skip = false;
     private Project project;
     public PanelA() {
         final FileChooserDescriptor fcd = new FileChooserDescriptor(true,true,true,true,true,true);
@@ -42,8 +43,24 @@ public class PanelA extends JPanel {
 
         add(textFieldWithBrowseButton);
         setSize(new Dimension(500,500));
+        add(textFieldWithBrowseButton);
+
+        JCheckBox chkSkip = new JCheckBox("Skip next step");
+        chkSkip.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                skip = chkSkip.isSelected();
+            }
+        });
+        add(chkSkip);
+
+        setSize(new Dimension(500,500));
     }
     public void setProject(Project project) {
         this.project = project;
+    }
+
+    public boolean skipNextStep() {
+        return skip;
     }
 }
