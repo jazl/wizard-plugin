@@ -37,6 +37,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import javafx.concurrent.Worker.State;
 import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
 import org.w3c.dom.events.*;
 
 public class ComponentsDialog extends JFrame {
@@ -225,8 +226,14 @@ public class ComponentsDialog extends JFrame {
             };
 
             Document document = webEngine.getDocument();
-            Element el = document.getElementById("loginButton");
-            ((EventTarget) el).addEventListener("click", listener, false);
+            NodeList nodeList = document.getElementsByTagName("input");
+
+            if(nodeList.getLength() > 0){
+                ((EventTarget) nodeList.item(0)).addEventListener("click", listener, false);
+            }
+            else {
+                JOptionPane.showMessageDialog(null, "No submit button found!");
+            }
 
             webEngine.setOnAlert(new EventHandler<WebEvent<String>>() {
                 @Override
