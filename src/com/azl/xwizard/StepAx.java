@@ -2,6 +2,7 @@ package com.azl.xwizard;
 
 import com.azl.common.SharedObject;
 import com.azl.common.WizardStep;
+import com.azl.gui.WebViewDialog;
 import com.azl.panels.PanelA;
 import com.intellij.ide.wizard.AbstractWizardStepEx;
 import com.intellij.ide.wizard.CommitStepException;
@@ -60,6 +61,10 @@ public class StepAx extends WizardStep {
         System.out.println("StepAx: sharedObject.getCounter() = "+cnt);
         sharedObject.setCounter(++cnt);
         sharedObject.setMessage("Last step: "+getStepId());
+        if (panel.showWebView()) {
+            new WebViewDialog(null, null).show();
+            throw new CommitStepException("WebView is stopping wizard from moving next");
+        }
     }
 
     @Override

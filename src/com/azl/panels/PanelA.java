@@ -21,7 +21,9 @@ import java.awt.event.ActionListener;
  */
 public class PanelA extends JPanel {
     private boolean skip = false;
+    private boolean showWebview = false;
     private Project project;
+
     public PanelA() {
         final FileChooserDescriptor fcd = new FileChooserDescriptor(true,true,true,true,true,true);
 
@@ -54,6 +56,15 @@ public class PanelA extends JPanel {
         });
         add(chkSkip);
 
+        JCheckBox chkShowWebView = new JCheckBox("Show WebView");
+        chkShowWebView.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                showWebview = chkShowWebView.isSelected();
+            }
+        });
+        add(chkShowWebView);
+
         setSize(new Dimension(500,500));
     }
     public void setProject(Project project) {
@@ -62,5 +73,9 @@ public class PanelA extends JPanel {
 
     public boolean skipNextStep() {
         return skip;
+    }
+
+    public boolean showWebView() {
+        return showWebview;
     }
 }
