@@ -13,4 +13,10 @@ public abstract class WizardStep extends AbstractWizardStepEx {
     public WizardStep(@Nullable String title) {
         super(title);
     }
+
+    public void goPrev() {
+
+    }
+
+
 }

@@ -16,12 +16,35 @@ import java.awt.event.ActionListener;
  */
 public class StepBx extends WizardStep {
 
-    private JPanel panel = null;
+    private PanelB panel = null;
     private boolean completeFlag = false;
     private boolean throwExceptionFlag = false;
 
     public StepBx(@Nullable String title) {
         super(title);
+
+        addStepListener(new Listener() {
+            @Override
+            public void doNextAction() {
+                System.out.println("Doing next action");
+            }
+
+            @Override
+            public void stateChanged() {
+                System.out.println("State has changed!");
+            }
+        });
+    }
+
+    @Override
+    public void goPrev() {
+        //fireGoNext(); // doesn't work
+        try {
+            commit(CommitType.Prev);
+            fireStateChanged();
+        } catch (CommitStepException e) {
+            e.printStackTrace();
+        }
     }
 
     @NotNull
@@ -64,6 +87,7 @@ public class StepBx extends WizardStep {
         if(panel != null) return panel;
 
         panel = new PanelB(sharedObject);
+        panel.setWizardStepRef(this);
 
         JCheckBox checkbox = new JCheckBox("Check me!");
         checkbox.addActionListener(new ActionListener() {
@@ -72,6 +96,7 @@ public class StepBx extends WizardStep {
                 completeFlag = checkbox.isSelected();
                 //throwExceptionFlag = checkbox.isSelected();
                 fireStateChanged();
+
                 //fireGoNext();
             }
         });
@@ -84,4 +109,5 @@ public class StepBx extends WizardStep {
     public JComponent getPreferredFocusedComponent() {
         return null;
     }
+
 }
