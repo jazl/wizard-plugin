@@ -36,7 +36,7 @@ public class PanelB extends JPanel {
         btnGoPrev.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                wizardStep.goPrev();
+                wizardStep.goPrevious();
             }
         });
         add(btnGoPrev);

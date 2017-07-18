@@ -23,6 +23,8 @@ public class StepBx extends WizardStep {
     public StepBx(@Nullable String title) {
         super(title);
 
+        System.out.println("In StepBx constructor");
+
         addStepListener(new Listener() {
             @Override
             public void doNextAction() {
@@ -37,14 +39,13 @@ public class StepBx extends WizardStep {
     }
 
     @Override
-    public void goPrev() {
-        //fireGoNext(); // doesn't work
-        try {
-            commit(CommitType.Prev);
-            fireStateChanged();
-        } catch (CommitStepException e) {
-            e.printStackTrace();
-        }
+    public void goPrevious() {
+        ((_AbstractExWizard)wizard).doPreviousAction();
+    }
+
+    @Override
+    public void _init() {
+        super._init();
     }
 
     @NotNull
@@ -84,6 +85,9 @@ public class StepBx extends WizardStep {
 
     @Override
     public JComponent getComponent() {
+
+        System.out.println("StepBx getting component...");
+
         if(panel != null) return panel;
 
         panel = new PanelB(sharedObject);

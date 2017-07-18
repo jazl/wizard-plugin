@@ -21,6 +21,11 @@ public class StepCx extends WizardStep {
         super(title);
     }
 
+    @Override
+    public void _init() {
+        super._init();
+    }
+
     @NotNull
     @Override
     public Object getStepId() {
@@ -51,6 +56,12 @@ public class StepCx extends WizardStep {
         System.out.println("StepCx: sharedObject.getCounter() = "+cnt);
         sharedObject.setCounter(++cnt);
         sharedObject.setMessage("Last step: "+getStepId());
+    }
+
+    @Override
+    public void dispose() {
+        super.dispose();
+        System.out.println("DISPOSING STEPC!");
     }
 
     @Override

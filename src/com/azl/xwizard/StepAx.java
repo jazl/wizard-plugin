@@ -25,6 +25,11 @@ public class StepAx extends WizardStep {
         this.project = project;
     }
 
+    @Override
+    public void _init() {
+        super._init();
+    }
+
     @NotNull
     @Override
     public Object getStepId() {
