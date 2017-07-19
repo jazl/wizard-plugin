@@ -1,23 +1,18 @@
 package com.azl.xwizard;
 
 import com.azl.common.WizardStep;
-import com.azl.panels.PanelB;
 import com.azl.panels.PanelC;
-import com.intellij.ide.wizard.AbstractWizardStepEx;
+import com.azl.panels.PanelD;
 import com.intellij.ide.wizard.CommitStepException;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import javax.swing.*;
 
-/**
- * Created by jazl on 6/29/2017.
- */
-public class StepCx extends WizardStep {
+public class StepDx extends WizardStep {
+    PanelD panel = null;
 
-    PanelC panel = null;
-
-    public StepCx(@Nullable String title) {
+    public StepDx(@Nullable String title) {
         super(title);
     }
 
@@ -29,19 +24,19 @@ public class StepCx extends WizardStep {
     @NotNull
     @Override
     public Object getStepId() {
-        return StepIdentifiers.STEP_C;
-    }
-
-    @Nullable
-    @Override
-    public Object getNextStepId() {
         return StepIdentifiers.STEP_D;
     }
 
     @Nullable
     @Override
+    public Object getNextStepId() {
+        return null;
+    }
+
+    @Nullable
+    @Override
     public Object getPreviousStepId() {
-        return StepIdentifiers.STEP_B;
+        return StepIdentifiers.STEP_C;
     }
 
     @Override
@@ -51,27 +46,15 @@ public class StepCx extends WizardStep {
 
     @Override
     public void commit(CommitType commitType) throws CommitStepException {
-        System.out.println(this.getStepId() + " commit "+commitType);
-        Integer cnt = sharedObject.getCounter();
-        System.out.println("StepCx: sharedObject.getCounter() = "+cnt);
-        sharedObject.setCounter(++cnt);
-        sharedObject.setMessage("Last step: "+getStepId());
-    }
-
-    @Override
-    public void dispose() {
-        super.dispose();
-        System.out.println("DISPOSING STEPC!");
     }
 
     @Override
     public JComponent getComponent() {
         if(panel != null) {
-            panel.setLabelText(sharedObject.getMessage() + ", counter "+sharedObject.getCounter());
             return panel;
         }
 
-        panel = new PanelC();
+        panel = new PanelD();
         return panel;
     }
 
