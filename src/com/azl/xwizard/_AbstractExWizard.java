@@ -36,7 +36,13 @@ public class _AbstractExWizard extends AbstractWizardEx {
 
     @Override
     protected boolean canGoNext() {
-        super.canGoNext();
-        return true;
+        //super.canGoNext();
+        return false;
+    }
+
+    @Override
+    protected boolean canFinish() {
+        super.canFinish();
+        return false;
     }
 }
