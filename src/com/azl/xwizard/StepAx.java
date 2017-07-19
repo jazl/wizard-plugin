@@ -42,6 +42,9 @@ public class StepAx extends WizardStep {
         if(panel.skipNextStep()) {
             return StepIdentifiers.STEP_C;
         }
+        if(panel.getDoNotGoNext()) {
+            return getStepId();
+        }
         return StepIdentifiers.STEP_B;
     }
 
@@ -69,6 +72,9 @@ public class StepAx extends WizardStep {
         if (panel.showWebView()) {
             new WebViewDialog(null, null).show();
             throw new CommitStepException("WebView is stopping wizard from moving next");
+        }
+        if(panel.getDoNotGoNext() == true) {
+            //throw new CommitStepException("Not going next");
         }
     }
 

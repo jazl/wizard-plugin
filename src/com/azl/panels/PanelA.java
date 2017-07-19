@@ -23,6 +23,7 @@ public class PanelA extends JPanel {
     private boolean skip = false;
     private boolean showWebview = false;
     private Project project;
+    private boolean doNotGoNext = false;
 
     public PanelA() {
         final FileChooserDescriptor fcd = new FileChooserDescriptor(true,true,true,true,true,true);
@@ -65,6 +66,15 @@ public class PanelA extends JPanel {
         });
         add(chkShowWebView);
 
+        JCheckBox chkDoNotGo = new JCheckBox("Do not go next");
+        chkDoNotGo.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                doNotGoNext = chkDoNotGo.isSelected();
+            }
+        });
+        add(chkDoNotGo);
+
         setSize(new Dimension(500,500));
     }
     public void setProject(Project project) {
@@ -78,4 +88,6 @@ public class PanelA extends JPanel {
     public boolean showWebView() {
         return showWebview;
     }
+
+    public boolean getDoNotGoNext() { return doNotGoNext;}
 }
