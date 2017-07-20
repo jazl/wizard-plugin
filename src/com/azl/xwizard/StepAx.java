@@ -71,7 +71,7 @@ public class StepAx extends WizardStep {
         sharedObject.setMessage("Last step: "+getStepId());
         if (panel.showWebView()) {
             new WebViewDialog(null, null).show();
-            throw new CommitStepException("WebView is stopping wizard from moving next");
+            //throw new CommitStepException("WebView is stopping wizard from moving next");
         }
         if(panel.getDoNotGoNext() == true) {
             //throw new CommitStepException("Not going next");

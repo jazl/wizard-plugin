@@ -21,7 +21,7 @@ import java.awt.event.ActionListener;
  */
 public class PanelA extends JPanel {
     private boolean skip = false;
-    private boolean showWebview = false;
+    private boolean showWebview = true;
     private Project project;
     private boolean doNotGoNext = false;
 
@@ -58,6 +58,7 @@ public class PanelA extends JPanel {
         add(chkSkip);
 
         JCheckBox chkShowWebView = new JCheckBox("Show WebView");
+        chkShowWebView.setSelected(true);
         chkShowWebView.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

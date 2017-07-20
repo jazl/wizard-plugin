@@ -25,6 +25,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.net.CookieHandler;
+import java.net.CookieManager;
 
 public class WebViewDialog extends DialogWrapper {
 
@@ -68,10 +70,16 @@ public class WebViewDialog extends DialogWrapper {
         jfxPanel.setPreferredSize(new Dimension(300,450));
         String html = "<html><body><h3>Oh hai there!</h3><a href=\"http://www.microsoft.com\">Link</a><input id=\"btnSubmit\" type=\"submit\"/></body></html>";
 
+        System.out.println("IN createCenterPanel...");
+        Platform.setImplicitExit(false);
+
+        // clear cookies
+        CookieHandler.setDefault(new CookieManager());
+
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
-                System.out.println("Thread.currentThread() = "+Thread.currentThread().toString());
+                System.out.println("ABOUT TO LOAD VIEW CONTENT!!");
                 loadViewContent(jfxPanel);
                 jfxPanel.requestFocus();
             }
@@ -106,6 +114,8 @@ public class WebViewDialog extends DialogWrapper {
         webEngine = webView.getEngine();
 
         panel.setScene(new Scene(webView));
+
+        url = "http://localhost:4200";
 
         if(url != null){
             webEngine.load(url);
