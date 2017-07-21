@@ -1,5 +1,6 @@
 package com.azl.panels;
 
+import com.azl.custom.DialogWithExtraButton;
 import com.intellij.execution.filters.TextConsoleBuilderFactory;
 import com.intellij.execution.ui.ConsoleView;
 import com.intellij.execution.ui.ConsoleViewContentType;
@@ -75,6 +76,15 @@ public class PanelA extends JPanel {
             }
         });
         add(chkDoNotGo);
+
+        JButton btnShowDialogWithActions = new JButton("Dialog w/ custom actions");
+        add(btnShowDialogWithActions);
+        btnShowDialogWithActions.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new DialogWithExtraButton(null).show();
+            }
+        });
 
         setSize(new Dimension(500,500));
     }
