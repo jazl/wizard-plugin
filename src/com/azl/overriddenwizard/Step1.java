@@ -5,6 +5,8 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class Step1 extends OverriddenWizardStepBase {
     public Step1(@Nullable String title) {
@@ -45,6 +47,15 @@ public class Step1 extends OverriddenWizardStepBase {
         JPanel panel = new JPanel();
         panel.add(new JLabel(getStepIdString()));
         panel.add(new JButton(getStepIdString()));
+        JButton btnShowDlg = new JButton("Show Required Text Field Dialog");
+        btnShowDlg.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                RequiredTextDialog dialog = new RequiredTextDialog(null);
+                dialog.show();
+            }
+        });
+        panel.add(btnShowDlg);
         return panel;
     }
 
