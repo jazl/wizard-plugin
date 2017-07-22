@@ -8,6 +8,7 @@ import com.intellij.ide.wizard.AbstractWizardStepEx;
 import com.intellij.ide.wizard.CommitStepException;
 import com.intellij.ide.wizard.Step;
 import com.intellij.openapi.project.Project;
+import com.intellij.openapi.ui.ValidationInfo;
 import org.jetbrains.annotations.Nullable;
 
 import javax.swing.*;
@@ -29,6 +30,14 @@ public class _AbstractWizard extends AbstractWizard<AbstractWizardStepEx> {
         centerRelativeToParent();
 
         init();
+    }
+
+    @Nullable
+    @Override
+    protected ValidationInfo doValidate() {
+        System.out.println("doValidate called from AbstractWizard<AbstractWizardStepEx>");
+
+        return super.doValidate();
     }
 
     @Override

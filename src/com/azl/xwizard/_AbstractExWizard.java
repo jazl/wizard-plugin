@@ -4,6 +4,7 @@ import com.azl.common.WizardStep;
 import com.intellij.ide.wizard.AbstractWizardEx;
 import com.intellij.ide.wizard.AbstractWizardStepEx;
 import com.intellij.openapi.project.Project;
+import com.intellij.openapi.ui.ValidationInfo;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -15,6 +16,8 @@ import java.util.List;
 public class _AbstractExWizard extends AbstractWizardEx {
     public _AbstractExWizard(String title, @Nullable Project project, List<? extends AbstractWizardStepEx> steps) {
         super(title, project, steps);
+        //init();
+        //initValidation();
     }
 
     @Override
@@ -44,5 +47,12 @@ public class _AbstractExWizard extends AbstractWizardEx {
     protected boolean canFinish() {
         super.canFinish();
         return false;
+    }
+
+    @Nullable
+    @Override
+    protected ValidationInfo doValidate() {
+        System.out.println("doValidate called from _AbstractExWizard");
+        return super.doValidate();
     }
 }

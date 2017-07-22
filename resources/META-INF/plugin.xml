@@ -41,6 +41,7 @@
         <keyboard-shortcut first-keystroke="control alt A" second-keystroke="A" keymap="$default"/>
       </action>
       <action id="com.azl.actions.ShowDialog" class="com.azl.actions.ShowDialog" text="Show a dialog" description="Displays a dialog with IntelliJ components" />
+      <action id="com.azl.actions.OverriddenWizardAction" class="com.azl.actions.OverriddenWizardAction" text="Overridden Wizard" description="Simple wizard with basic overrides" />
     </group>
     <group id="SimpleGroup" text="Custom Action Group" popup="true">
       <add-to-group group-id="EditorPopupMenu" anchor="first"/>

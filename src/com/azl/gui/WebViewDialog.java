@@ -2,6 +2,7 @@ package com.azl.gui;
 
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.ui.DialogWrapper;
+import com.intellij.openapi.ui.ValidationInfo;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -28,6 +29,7 @@ import java.awt.event.KeyListener;
 import java.net.CookieHandler;
 import java.net.CookieManager;
 
+// Shown from StepAx
 public class WebViewDialog extends DialogWrapper {
 
     private final JFXPanel jfxPanel = new JFXPanel();
@@ -35,10 +37,22 @@ public class WebViewDialog extends DialogWrapper {
     private WebEngine webEngine;
     private String url;
     private final String noUrlHtml = "<html><body><h3>No URL provided!</body></html>";
+    private int validateCount = 0;
 
     public WebViewDialog(@Nullable Project project, boolean canBeParent) {
         super(project, canBeParent);
         init();
+        setTitle("WebViewDialog");
+    }
+
+    @Nullable
+    @Override
+    protected ValidationInfo doValidate() {
+        System.out.println("doValidate called!");
+        if(++validateCount > 25) {
+            return new ValidationInfo("validateCount limit exceeded!");
+        }
+        return null;
     }
 
     public WebViewDialog(@Nullable Project project, String url) {
