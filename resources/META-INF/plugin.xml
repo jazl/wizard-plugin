@@ -43,10 +43,16 @@
       <action id="com.azl.actions.ShowDialog" class="com.azl.actions.ShowDialog" text="Show a dialog" description="Displays a dialog with IntelliJ components" />
       <action id="com.azl.actions.OverriddenWizardAction" class="com.azl.actions.OverriddenWizardAction" text="Overridden Wizard" description="Simple wizard with basic overrides" />
     </group>
-    <group id="SimpleGroup" text="Custom Action Group" popup="true">
-      <add-to-group group-id="EditorPopupMenu" anchor="first"/>
-      <action id="com.azl.actions.TestAction" class="com.azl.actions.TestAction" text="Test Action" description="Test stuff" />
-    </group>
+
+    <!--TODO: fix this! right now causing exception -->
+    <!--[8967]  ERROR - nSystem.impl.ActionManagerImpl - action with the ID "com.azl.actions.TestAction" was already registered. -->
+    <!--Action being registered is Test Action (Test stuff); Registered action is Test Action (Test stuff) Plugin: -->
+    <!--Plugin display name here [Plugin: com.your.company.unique.plugin.id] -->
+
+    <!--<group id="SimpleGroup" text="Custom Action Group" popup="true">-->
+      <!--<add-to-group group-id="EditorPopupMenu" anchor="first"/>-->
+      <!--<action id="com.azl.actions.TestAction" class="com.azl.actions.TestAction" text="Test Action" description="Test stuff" />-->
+    <!--</group>-->
   </actions>
 
   <!-- Add your actions here -->
@@ -72,9 +78,14 @@ The mandatory "anchor" attribute specifies the position of the action in the gro
 The "relative-to-action" attribute is mandatory if the anchor is set to "before" and "after", and specifies the action before or after which
 the current action is inserted. -->
 
-  <project-components>
+  <!--<project-components>-->
+    <!--<component>-->
+      <!--<implementation-class>com.azl.common.WizardStateComponent</implementation-class>-->
+    <!--</component>-->
+  <!--</project-components>-->
+  <application-components>
     <component>
-      <implementation-class>com.azl.actions.WizardStateComponent</implementation-class>
+      <implementation-class>com.azl.common.ApplicationStateComponent</implementation-class>
     </component>
-  </project-components>
+  </application-components>
 </idea-plugin>

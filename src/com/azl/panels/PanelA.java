@@ -42,12 +42,15 @@ public class PanelA extends JPanel {
         });
         add(button);
         JTextField fileInfo = new JTextField();
-        TextFieldWithBrowseButton textFieldWithBrowseButton = new TextFieldWithBrowseButton(fileInfo);
-        textFieldWithBrowseButton.addBrowseFolderListener(new TextBrowseFolderListener(fcd));
 
-        add(textFieldWithBrowseButton);
-        setSize(new Dimension(500,500));
-        add(textFieldWithBrowseButton);
+        // TODO: look into why this component is causing the following error
+        // [  23358]  ERROR - i.ui.ComponentWithBrowseButton - multiple selection not supported
+//        TextFieldWithBrowseButton textFieldWithBrowseButton = new TextFieldWithBrowseButton(fileInfo);
+//        textFieldWithBrowseButton.addBrowseFolderListener(new TextBrowseFolderListener(fcd));
+//
+//        add(textFieldWithBrowseButton);
+//        setSize(new Dimension(500,500));
+//        add(textFieldWithBrowseButton);
 
         JCheckBox chkSkip = new JCheckBox("Skip next step");
         chkSkip.addActionListener(new ActionListener() {

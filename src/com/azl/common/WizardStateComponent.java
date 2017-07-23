@@ -1,4 +1,4 @@
-package com.azl.actions;
+package com.azl.common;
 
 import com.azl.xwizard.WizardState;
 import com.intellij.openapi.components.PersistentStateComponent;
