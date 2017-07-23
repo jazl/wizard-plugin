@@ -72,4 +72,9 @@ The mandatory "anchor" attribute specifies the position of the action in the gro
 The "relative-to-action" attribute is mandatory if the anchor is set to "before" and "after", and specifies the action before or after which
 the current action is inserted. -->
 
+  <project-components>
+    <component>
+      <implementation-class>com.azl.actions.WizardStateComponent</implementation-class>
+    </component>
+  </project-components>
 </idea-plugin>
