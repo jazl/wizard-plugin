@@ -1,6 +1,5 @@
 package com.azl.common;
 
-import com.azl.xwizard.WizardState;
 import com.intellij.openapi.components.PersistentStateComponent;
 import com.intellij.openapi.components.ProjectComponent;
 import com.intellij.openapi.components.State;

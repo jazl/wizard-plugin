@@ -1,19 +1,38 @@
 package com.azl.common;
 
-import com.azl.xwizard.WizardState;
 import com.intellij.openapi.components.ApplicationComponent;
 import com.intellij.openapi.components.PersistentStateComponent;
 import com.intellij.openapi.components.State;
+import com.intellij.openapi.components.Storage;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-@State(name="fod.upload.wizard.state.")
-public class ApplicationStateComponent implements ApplicationComponent, PersistentStateComponent {
+@State(name="fod.upload.wizard.state", storages = {
+    @Storage(id = "fod-other", file = "$APP_CONFIG$/configProvider.xml")
+})
+public class ApplicationStateComponent implements ApplicationComponent, PersistentStateComponent<ApplicationStateComponent.State> {
     private WizardState wizardState;
+
+    public State state = new State();
+
+    public static class State {
+        public State() {}
+        public String foo;
+        public int appCnt;
+    }
 
     public ApplicationStateComponent() {
         wizardState = new WizardState();
+        //wizState = new WizState();
         System.out.println("ApplicationStateComponent: constructor");
+    }
+
+    public int getAppCnt() {
+        return state.appCnt;
+    }
+
+    public void setAppCnt(int cnt) {
+        state.appCnt = cnt;
     }
 
     public WizardState getWizardState() {
@@ -40,13 +59,13 @@ public class ApplicationStateComponent implements ApplicationComponent, Persiste
 
     @Nullable
     @Override
-    public Object getState() {
-        System.out.println("ApplicationStateComponent: getState");
-        return null;
+    public State getState() {
+        return state;
     }
 
     @Override
-    public void loadState(Object state) {
-        System.out.println("ApplicationStateComponent: loadState");
+    public void loadState(State state) {
+        this.state = state;
     }
+
 }

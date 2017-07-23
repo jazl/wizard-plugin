@@ -1,4 +1,4 @@
-package com.azl.xwizard;
+package com.azl.common;
 
 public class WizardState {
     public String wizardState;

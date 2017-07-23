@@ -1,7 +1,7 @@
 package com.azl.xwizard;
 
 import com.azl.common.ApplicationStateComponent;
-import com.azl.common.WizardStateComponent;
+import com.azl.common.WizardState;
 import com.azl.common.WizardStep;
 import com.intellij.ide.util.PropertiesComponent;
 import com.intellij.ide.wizard.AbstractWizardEx;
@@ -49,6 +49,11 @@ public class _AbstractExWizard extends AbstractWizardEx implements PersistentSta
         System.out.println("Got wizard count (app component) = "+wizardCnt);
         wizardCnt++;
         wizardState.setWizardCount(wizardCnt);
+
+        int appCnt = component1.getAppCnt();
+        System.out.println("Got appCnt = "+appCnt);
+        appCnt++;
+        component1.setAppCnt(appCnt);
 
         //WizardStateComponent component = ApplicationManager.getApplication().getComponent(WizardStateComponent.class);
         //WizardState wizardState = component.getWizardState();
