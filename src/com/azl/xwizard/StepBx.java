@@ -1,29 +1,34 @@
 package com.azl.xwizard;
 
+import com.azl.common.ApplicationStateComponent;
 import com.azl.common.WizardStep;
 import com.azl.panels.PanelB;
 import com.intellij.ide.wizard.AbstractWizardStepEx;
 import com.intellij.ide.wizard.CommitStepException;
+import com.intellij.openapi.project.Project;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Date;
 
 /**
  * Created by jazl on 6/29/2017.
  */
 public class StepBx extends WizardStep {
 
+    private Project project;
     private PanelB panel = null;
     private boolean completeFlag = false;
     private boolean throwExceptionFlag = false;
 
-    public StepBx(@Nullable String title) {
+    public StepBx(@Nullable String title, Project project) {
         super(title);
 
         System.out.println("In StepBx constructor");
+        this.project = project;
 
         addStepListener(new Listener() {
             @Override
@@ -81,6 +86,7 @@ public class StepBx extends WizardStep {
         if(throwExceptionFlag) {
             throw new CommitStepException("Stop it!");
         }
+        project.getComponent(ApplicationStateComponent.class).addLogEntry("StepBx did a commit on with commitType "+commitType+" on "+new Date());
     }
 
     @Override

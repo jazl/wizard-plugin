@@ -24,7 +24,7 @@ public class _AbstractWizard extends AbstractWizard<AbstractWizardStepEx> {
         super(title, project);
 
         addStep(new StepAx("Step Ax", null));
-        addStep(new StepBx("Step Bx"));
+        addStep(new StepBx("Step Bx", project));
         addStep(new StepCx("Step Cx"));
 
         centerRelativeToParent();

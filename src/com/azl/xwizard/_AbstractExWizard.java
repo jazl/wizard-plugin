@@ -54,6 +54,7 @@ public class _AbstractExWizard extends AbstractWizardEx implements PersistentSta
         System.out.println("Got appCnt = "+appCnt);
         appCnt++;
         component1.setAppCnt(appCnt);
+        component1.printLogEntries();
 
         //WizardStateComponent component = ApplicationManager.getApplication().getComponent(WizardStateComponent.class);
         //WizardState wizardState = component.getWizardState();

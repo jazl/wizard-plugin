@@ -1,16 +1,19 @@
 package com.azl.xwizard;
 
+import com.azl.common.ApplicationStateComponent;
 import com.azl.common.SharedObject;
 import com.azl.common.WizardStep;
 import com.azl.gui.WebViewDialog;
 import com.azl.panels.PanelA;
 import com.intellij.ide.wizard.AbstractWizardStepEx;
 import com.intellij.ide.wizard.CommitStepException;
+import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.project.Project;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import javax.swing.*;
+import java.util.Date;
 
 /**
  * Created by jazl on 6/29/2017.
@@ -76,6 +79,7 @@ public class StepAx extends WizardStep {
         if(panel.getDoNotGoNext() == true) {
             //throw new CommitStepException("Not going next");
         }
+        project.getComponent(ApplicationStateComponent.class).addLogEntry("StepAx commited on "+new Date());
     }
 
     @Override

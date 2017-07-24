@@ -25,7 +25,7 @@ public class ActionX extends AnAction {
 
         List<AbstractWizardStepEx> steps = new ArrayList<>();
         steps.add(new StepAx("Step A", project));
-        steps.add(new StepBx("Step B"));
+        steps.add(new StepBx("Step B", project));
         steps.add(new StepCx("Step C"));
 
         _AbstractExWizard wizard = new _AbstractExWizard("AbstractEx Wizard", project, steps);

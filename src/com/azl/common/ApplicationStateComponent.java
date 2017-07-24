@@ -7,6 +7,9 @@ import com.intellij.openapi.components.Storage;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @State(name="fod.upload.wizard.state", storages = {
     @Storage(id = "fod-other", file = "$APP_CONFIG$/configProvider.xml")
 })
@@ -17,7 +20,7 @@ public class ApplicationStateComponent implements ApplicationComponent, Persiste
 
     public static class State {
         public State() {}
-        public String foo;
+        public List<String> log = new ArrayList<>();
         public int appCnt;
     }
 
@@ -25,6 +28,18 @@ public class ApplicationStateComponent implements ApplicationComponent, Persiste
         wizardState = new WizardState();
         //wizState = new WizState();
         System.out.println("ApplicationStateComponent: constructor");
+    }
+
+    public void addLogEntry(String entry) {
+        state.log.add(entry);
+    }
+
+    public void printLogEntries() {
+        System.out.println("State.log contains "+state.log.size()+" entries");
+        for(String s:state.log){
+            System.out.println(s);
+        }
+        System.out.println("*** end of log entries ***");
     }
 
     public int getAppCnt() {
