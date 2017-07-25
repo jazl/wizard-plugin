@@ -1,5 +1,6 @@
 package com.azl.overriddenwizard;
 
+import com.azl.standalone.RequiredTextDialog;
 import com.intellij.ide.wizard.CommitStepException;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -7,6 +8,7 @@ import org.jetbrains.annotations.Nullable;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import com.azl.standalone.RequiredTextDialog;
 
 public class Step1 extends OverriddenWizardStepBase {
     public Step1(@Nullable String title) {

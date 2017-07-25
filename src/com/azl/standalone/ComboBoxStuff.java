@@ -1,4 +1,4 @@
-package com.azl.overriddenwizard;
+package com.azl.standalone;
 
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.ui.DialogWrapper;
@@ -7,19 +7,20 @@ import org.jetbrains.annotations.Nullable;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
  * Created by jazl on 7/22/2017.
  */
-public class RequiredTextDialog extends DialogWrapper {
+public class ComboBoxStuff extends DialogWrapper {
     JTextField textField;
+    JComboBox comboBox;
 
-    protected RequiredTextDialog(@Nullable Project project) {
+    public ComboBoxStuff(@Nullable Project project) {
         super(project);
-        setTitle("Required Text Dialog");
+        setTitle("ComboBox stuff");
         init();
-        //initValidation();
-
     }
 
     @Nullable
@@ -39,9 +40,23 @@ public class RequiredTextDialog extends DialogWrapper {
     protected JComponent createCenterPanel() {
         JPanel panel = new JPanel();
         panel.setMinimumSize(new Dimension(0,100));
-        textField = new JTextField(50);
-        panel.add(new JLabel("Required Text Field: "));
-        panel.add(textField);
+        String[] employees = { "Bird", "Cat", "Dog", "Rabbit", "Pig" };
+        comboBox = new JComboBox(employees);
+        comboBox.setSelectedItem("sharon");
+        comboBox.setEditable(true);
+
+        JButton btnAdd = new JButton("Add");
+        btnAdd.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //comboBox.addItem(comboBox.getSelectedItem());
+                comboBox.insertItemAt(comboBox.getSelectedItem(), 0);
+            }
+        });
+
+        panel.add(new JLabel("ComboBox: "));
+        panel.add(comboBox);
+        panel.add(btnAdd);
         return panel;
     }
 
@@ -54,7 +69,7 @@ public class RequiredTextDialog extends DialogWrapper {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-                RequiredTextDialog dialog = new RequiredTextDialog(null);
+                ComboBoxStuff dialog = new ComboBoxStuff(null);
                 dialog.show();
             }
         });
