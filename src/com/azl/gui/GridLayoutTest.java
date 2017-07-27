@@ -1,5 +1,6 @@
 package com.azl.gui;
 
+import com.intellij.icons.AllIcons;
 import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.application.ModalityState;
 import com.intellij.openapi.project.Project;
@@ -36,6 +37,9 @@ public class GridLayoutTest extends JFrame {
     private JCheckBox useSonatypeCombo;
     private JCheckBox useThirdParty;
     private JButton btnLogout;
+    private JButton btnRefresh;
+    private JButton btnSearch;
+    private JTextField txtSearch;
 
     public GridLayoutTest() {
 
@@ -60,7 +64,7 @@ public class GridLayoutTest extends JFrame {
         constraints.insets = new Insets(0, 0, 5, 0);
         constraints.gridx = 0;
         constraints.gridy = 0;
-        constraints.gridwidth = 3;
+        constraints.gridwidth = 5;
         this.add(header, constraints);
     }
 
@@ -68,18 +72,34 @@ public class GridLayoutTest extends JFrame {
         GridBagConstraints panelConstraints = new GridBagConstraints();
         panelConstraints.gridx = 0;
         panelConstraints.gridy = 1;
-        panelConstraints.weightx = 0;
+        panelConstraints.weightx = 0.0;
+        panelConstraints.fill = GridBagConstraints.HORIZONTAL;
+        panelConstraints.insets = new Insets(0,5,0,0);
         add(new JLabel("Search:"), panelConstraints);
 
-        panelConstraints = new GridBagConstraints();
         panelConstraints.gridx = 1;
         panelConstraints.gridy = 1;
-        panelConstraints.weightx = 800;
+        panelConstraints.weightx = 2000000;
         panelConstraints.fill = GridBagConstraints.HORIZONTAL;
-        add(new JTextField(), panelConstraints);
+        txtSearch = new JTextField(100);
+        add(txtSearch, panelConstraints);
 
-        panelConstraints = new GridBagConstraints();
         panelConstraints.gridx = 2;
+        panelConstraints.gridy = 1;
+        panelConstraints.weightx = 0;
+        panelConstraints.fill = GridBagConstraints.HORIZONTAL;
+        btnSearch = new JButton("Search");
+        //btnSearch.setIcon(AllIcons.Actions.Find);
+        add(btnSearch, panelConstraints);
+
+        panelConstraints.gridx = 3;
+        panelConstraints.gridy = 1;
+        panelConstraints.weightx = 0;
+        panelConstraints.fill = GridBagConstraints.HORIZONTAL;
+        btnRefresh = new JButton("Refresh");
+        add(btnRefresh, panelConstraints);
+
+        panelConstraints.gridx = 4;
         panelConstraints.gridy = 1;
         panelConstraints.weightx = 0;
         panelConstraints.fill = GridBagConstraints.HORIZONTAL;
@@ -87,6 +107,7 @@ public class GridLayoutTest extends JFrame {
         //btnLogout.setIcon(new ImageIcon(ReleasesListPanel.class.getResource("/icons/logout.gif")));
         btnLogout.setToolTipText("Change API Root URL or tenant");
         add(btnLogout, panelConstraints);
+
     }
 
     private void initTable() {
@@ -108,7 +129,7 @@ public class GridLayoutTest extends JFrame {
         constraints.gridx = 0;
         constraints.gridy = 2;
         constraints.weighty = 100;
-        constraints.gridwidth = 3;
+        constraints.gridwidth = 5;
         constraints.insets = new Insets(10, 0, 10, 0);
         add(scrollPane, constraints);
     }
@@ -117,7 +138,7 @@ public class GridLayoutTest extends JFrame {
         GridBagConstraints constraints = new GridBagConstraints();
         constraints.fill = GridBagConstraints.HORIZONTAL;
         constraints.gridy = 3;
-        constraints.gridwidth = 3;
+        constraints.gridwidth = 5;
         constraints.anchor = GridBagConstraints.EAST;
         units = new JLabel("0 Unit(s) available", SwingConstants.RIGHT);
         add(units, constraints);
@@ -134,7 +155,7 @@ public class GridLayoutTest extends JFrame {
         constraints.weightx = 1;
         constraints.gridy = 4;
         constraints.gridx = 1;
-        constraints.gridwidth = 2;
+        constraints.gridwidth = 4;
         constraints.fill = GridBagConstraints.HORIZONTAL;
         constraints.insets = new Insets(5, 0, 0, 5);
         assesmentTypeComboBox = new ComboBox<>();

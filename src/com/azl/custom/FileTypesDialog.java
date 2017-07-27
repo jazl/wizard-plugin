@@ -13,14 +13,52 @@ import javax.swing.tree.TreeSelectionModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Enumeration;
+import java.util.*;
 
 public class FileTypesDialog extends DialogWrapper {
 
     private FileTypeDialogPanel fileTypeDialogPanel;
     private static final String[] BINARY_TYPES = new String[] {"jar", "war", "ear", "class", "dll", "exe"};
+    private static final TreeSet<String> FILE_TYPES = new TreeSet<String>(
+        Arrays.asList(
+            "class without source",
+            "htm",
+            "html",
+            "jardesc",
+            "jpage",
+            "shtml",
+            "xml",
+            "doc",
+            "docx",
+            "xmi",
+            "log",
+            "target",
+            "emof",
+            "properties",
+            "e4xmi",
+            "png",
+            "jpg",
+            "jpeg",
+            "gif",
+            "bmp",
+            "ico",
+            "ecore",
+            "prefs",
+            "class",
+            "macrodef",
+            "ent",
+            "ant",
+            "exsd",
+            "product",
+            "java",
+            "txt",
+            "jar",
+            "war",
+            "ear",
+            "dll",
+            "exe"
+        )
+    );
     private DefaultTreeModel defaultTreeModel;
     private ArrayList<String> selectedExtensions;
 
@@ -61,34 +99,9 @@ public class FileTypesDialog extends DialogWrapper {
 
         // TODO: where to get list of file types and icons?
         // TODO: set checked state
-        rootNode.add(new DefaultMutableTreeNode(buildFileTypeInfo(".ad", selected)));
-        rootNode.add(new DefaultMutableTreeNode(buildFileTypeInfo(".adoc", selected)));
-        rootNode.add(new DefaultMutableTreeNode(buildFileTypeInfo(".ant", selected)));
-        rootNode.add(new DefaultMutableTreeNode(buildFileTypeInfo(".asciidoc", selected)));
-        rootNode.add(new DefaultMutableTreeNode(buildFileTypeInfo(".asm", selected)));
-        rootNode.add(new DefaultMutableTreeNode(buildFileTypeInfo(".bmp", selected)));
-        rootNode.add(new DefaultMutableTreeNode(buildFileTypeInfo(".c", selected)));
-        rootNode.add(new DefaultMutableTreeNode(buildFileTypeInfo(".C", selected)));
-        rootNode.add(new DefaultMutableTreeNode(buildFileTypeInfo(".c++", selected)));
-        rootNode.add(new DefaultMutableTreeNode(buildFileTypeInfo(".cc", selected)));
-        rootNode.add(new DefaultMutableTreeNode(buildFileTypeInfo(".chromium", selected)));
-        rootNode.add(new DefaultMutableTreeNode(buildFileTypeInfo(".class", selected)));
-        rootNode.add(new DefaultMutableTreeNode(buildFileTypeInfo(".class without source", selected)));
-        rootNode.add(new DefaultMutableTreeNode(buildFileTypeInfo(".confluence", selected)));
-        rootNode.add(new DefaultMutableTreeNode(buildFileTypeInfo(".cpp", selected)));
-        rootNode.add(new DefaultMutableTreeNode(buildFileTypeInfo(".css", selected)));
-        rootNode.add(new DefaultMutableTreeNode(buildFileTypeInfo(".cxx", selected)));
-        rootNode.add(new DefaultMutableTreeNode(buildFileTypeInfo(".dbk", selected)));
-        rootNode.add(new DefaultMutableTreeNode(buildFileTypeInfo(".ddl", selected)));
-        rootNode.add(new DefaultMutableTreeNode(buildFileTypeInfo(".data", selected)));
-        rootNode.add(new DefaultMutableTreeNode(buildFileTypeInfo(".java", selected)));
-        rootNode.add(new DefaultMutableTreeNode(buildFileTypeInfo(".jsp", selected)));
-        rootNode.add(new DefaultMutableTreeNode(buildFileTypeInfo(".xml", selected)));
-        rootNode.add(new DefaultMutableTreeNode(buildFileTypeInfo(".xsd", selected)));
-        rootNode.add(new DefaultMutableTreeNode(buildFileTypeInfo(".xsl", selected)));
-        rootNode.add(new DefaultMutableTreeNode(buildFileTypeInfo(".xslt", selected)));
-        rootNode.add(new DefaultMutableTreeNode(buildFileTypeInfo(".zip", selected)));
-
+        for(String extension:FILE_TYPES) {
+            rootNode.add(new DefaultMutableTreeNode(buildFileTypeInfo("."+extension, selected)));
+        }
         return rootNode;
     }
     
@@ -110,13 +123,6 @@ class FileTypeDialogPanel extends JPanel {
         gridBagLayout.columnWeights = new double[]{1.0, Double.MIN_VALUE};
         gridBagLayout.rowWeights = new double[]{0.0, 1.0, 0.0, Double.MIN_VALUE};
         setLayout(gridBagLayout);
-
-        JLabel lblInfo = new JLabel("Reduce select to only files of type(s):");
-        GridBagConstraints gbc_lblInfo = new GridBagConstraints();
-        gbc_lblInfo.insets = new Insets(0, 0, 5, 0);
-        gbc_lblInfo.gridx = 0;
-        gbc_lblInfo.gridy = 0;
-        add(lblInfo, gbc_lblInfo);
 
         JScrollPane scrTreeFiles = new JScrollPane();
         GridBagConstraints gbc_scrTreeFiles = new GridBagConstraints();

@@ -40,9 +40,13 @@ public class ComboBoxStuff extends DialogWrapper {
     protected JComponent createCenterPanel() {
         JPanel panel = new JPanel();
         panel.setMinimumSize(new Dimension(0,100));
-        String[] employees = { "Bird", "Cat", "Dog", "Rabbit", "Pig" };
-        comboBox = new JComboBox(employees);
-        comboBox.setSelectedItem("sharon");
+
+        String[] employees = { "Susan", "Heidi", "SharonG" };
+        String[] pfemployees = { "Veronica", "Tina" };
+
+        DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>(employees);
+
+        comboBox = new JComboBox(pfemployees);
         comboBox.setEditable(true);
 
         JButton btnAdd = new JButton("Add");
@@ -50,7 +54,20 @@ public class ComboBoxStuff extends DialogWrapper {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //comboBox.addItem(comboBox.getSelectedItem());
-                comboBox.insertItemAt(comboBox.getSelectedItem(), 0);
+                DefaultComboBoxModel<String> model = (DefaultComboBoxModel) comboBox.getModel();
+                int pos = model.getIndexOf(comboBox.getSelectedItem());
+                if(pos == -1){
+                    comboBox.insertItemAt(comboBox.getSelectedItem(), 0);
+                }
+                if(model != null) {
+                    System.out.println("Content of model");
+                    for(int i=0; i<model.getSize(); i++) {
+                        System.out.println(i+" = "+model.getElementAt(i));
+                    }
+                }
+                else {
+                    System.out.println("MODEL IS NULL!!!");
+                }
             }
         });
 
