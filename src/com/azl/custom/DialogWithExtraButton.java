@@ -6,20 +6,30 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 
 public class DialogWithExtraButton extends DialogWrapper {
+    JTextField someField;
+
     public DialogWithExtraButton(@Nullable Project project) {
         super(project);
         init();
         setTitle("Dialog with custom actions");
     }
 
+    public Component getFocusComponent(){
+        return someField;
+    }
+
     @Nullable
     @Override
     protected JComponent createCenterPanel() {
         JPanel panel = new JPanel();
-        panel.add(new JTextField());
+        panel.add(new JLabel("Some label:"));
+        someField = new JTextField(25);
+        someField.requestFocusInWindow();
+        panel.add(someField);
         return panel;
     }
 

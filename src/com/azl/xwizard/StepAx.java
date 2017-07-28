@@ -94,6 +94,6 @@ public class StepAx extends WizardStep {
     @Nullable
     @Override
     public JComponent getPreferredFocusedComponent() {
-        return null;
+        return panel.getFocusComponent();
     }
 }

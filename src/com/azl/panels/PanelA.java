@@ -21,6 +21,7 @@ import java.awt.event.ActionListener;
  * Created by jazl on 6/29/2017.
  */
 public class PanelA extends JPanel {
+    private JCheckBox chkDoNotGo;
     private boolean skip = false;
     private boolean showWebview = true;
     private Project project;
@@ -71,7 +72,7 @@ public class PanelA extends JPanel {
         });
         add(chkShowWebView);
 
-        JCheckBox chkDoNotGo = new JCheckBox("Do not go next");
+        chkDoNotGo = new JCheckBox("Do not go next");
         chkDoNotGo.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -104,4 +105,8 @@ public class PanelA extends JPanel {
     }
 
     public boolean getDoNotGoNext() { return doNotGoNext;}
+
+    public JComponent getFocusComponent() {
+        return chkDoNotGo;
+    }
 }

@@ -1,5 +1,6 @@
 package com.azl.gui;
 
+import com.azl.custom.ContextMenuMouseListener;
 import com.intellij.icons.AllIcons;
 import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.application.ModalityState;
@@ -82,6 +83,7 @@ public class GridLayoutTest extends JFrame {
         panelConstraints.weightx = 2000000;
         panelConstraints.fill = GridBagConstraints.HORIZONTAL;
         txtSearch = new JTextField(100);
+        txtSearch.addMouseListener(new ContextMenuMouseListener());
         add(txtSearch, panelConstraints);
 
         panelConstraints.gridx = 2;
