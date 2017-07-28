@@ -90,7 +90,8 @@ public class GridLayoutTest extends JFrame {
         panelConstraints.gridy = 1;
         panelConstraints.weightx = 0;
         panelConstraints.fill = GridBagConstraints.HORIZONTAL;
-        btnSearch = new JButton("Search");
+        btnSearch = new JButton();
+        btnSearch.setIcon(AllIcons.Actions.Find);
         //btnSearch.setIcon(AllIcons.Actions.Find);
         add(btnSearch, panelConstraints);
 
@@ -98,7 +99,8 @@ public class GridLayoutTest extends JFrame {
         panelConstraints.gridy = 1;
         panelConstraints.weightx = 0;
         panelConstraints.fill = GridBagConstraints.HORIZONTAL;
-        btnRefresh = new JButton("Refresh");
+        btnRefresh = new JButton();
+        btnRefresh.setIcon(AllIcons.Actions.Refresh);
         add(btnRefresh, panelConstraints);
 
         panelConstraints.gridx = 4;
@@ -106,6 +108,7 @@ public class GridLayoutTest extends JFrame {
         panelConstraints.weightx = 0;
         panelConstraints.fill = GridBagConstraints.HORIZONTAL;
         btnLogout = new JButton("Logout");
+        btnLogout.setIcon(AllIcons.Actions.Prevfile);
         //btnLogout.setIcon(new ImageIcon(ReleasesListPanel.class.getResource("/icons/logout.gif")));
         btnLogout.setToolTipText("Change API Root URL or tenant");
         add(btnLogout, panelConstraints);
